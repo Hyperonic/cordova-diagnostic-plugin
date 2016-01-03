@@ -634,6 +634,7 @@ var Diagnostic = (function(){
 			Diagnostic.runtimePermission.READ_EXTERNAL_STORAGE
 		]);
 	};
+};
 
 	/**
 	 * Checks if the application is authorized to use the camera.
@@ -647,6 +648,15 @@ var Diagnostic = (function(){
 			successCallback(status == Diagnostic.runtimePermissionStatus.GRANTED);
 		}
 		Diagnostic.getCameraAuthorizationStatus(onSuccess, errorCallback);
+	};
+
+	Diagnostic.isMockSettingsON = function(successCallback, errorCallback){
+		return cordova.exec(
+			successCallback,
+			errorCallback,
+			'Diagnostic',
+			'isMockSettingsON',
+			[]);
 	};
 
 

@@ -199,6 +199,14 @@ public class Diagnostic extends CordovaPlugin{
                 this.requestRuntimePermission(args);
             }else if(action.equals("requestRuntimePermissions")) {
                 this.requestRuntimePermissions(args);
+            }
+            else if(action.equals("isMockSettingsON")) {
+                if (isMockSettingsON()) {
+                    callbackContext.success(1);
+                } else {
+                    callbackContext.success(0);
+                }
+                return true;
             }else {
                 handleError("Invalid action");
                 return false;
@@ -605,4 +613,14 @@ public class Diagnostic extends CordovaPlugin{
             handleError("Exception occurred onRequestPermissionsResult: ".concat(e.getMessage()), requestCode);
         }
     }
+
+    public boolean isMockSettingsON() {
+        // returns true if mock location enabled, false if not enabled.
+        if (Settings.Secure.getString(this.cordova.getActivity().getContentResolver(),
+                                    Settings.Secure.ALLOW_MOCK_LOCATION).equals("0")) {
+            return false;
+        } else {
+            return true;
+        }
+    } 
 }
